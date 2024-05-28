@@ -8,7 +8,7 @@ const Home = () => {
         <>
         
         <ToastContainer/>
-            <div className="w-full p-10 h-screen bg-black flex flex-col gap-10 ">
+            <div className="w-full p-10 h-screen bg-black flex flex-col gap-10 items-center justify-center">
                 
                 <p className="text-white text-[40px] font-semibold">
                     to<span className="text-violet-600">do.</span>

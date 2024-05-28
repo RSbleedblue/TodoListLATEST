@@ -6,7 +6,7 @@ import { FaGithub } from "react-icons/fa";
 const Features = () => {
     return (
         <>
-            <div className="h-[90%] w-[25%] shadow-lg rounded-xl bg-slate-950  flex flex-col p-6 gap-10 items-center ">
+            <div className="h-[90%] w-[25%] shadow-lg rounded-xl bg-slate-950  flex flex-col p-6 gap-10 items-center ml-[15%]">
                 <div className="w-full text-white flex justify-between items-center">
                     <p className="text-2xl font-semibold text-violet-500">Features
                     </p>
