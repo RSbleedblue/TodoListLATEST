@@ -1,9 +1,11 @@
 import { useContext, useEffect, useState } from "react";
 import TODOContext from "../Utils/TODOContext";
+import ThemeContext from "../Utils/ThemeContext";
 
 const Search = () => {
     const [searchText, setSearchText] = useState("");
     const { state } = useContext(TODOContext);
+    const { state: themeState } = useContext(ThemeContext); 
     const [filteredTodos, setFilteredTodos] = useState([]);
 
     useEffect(() => {
@@ -19,11 +21,11 @@ const Search = () => {
 
     return (
         <>
-            <div className="h-[90%] w-[40%] shadow-lg rounded-xl bg-slate-950 flex flex-col p-6 gap-4 items-start relative">
-                <p className="text-3xl text-violet-500">Search</p>
-                <div className="w-[80%] border border-solid border-white rounded-lg flex gap-2 items-center justify-between p-2">
+            <div className={`h-[90%] w-[40%] shadow-lg rounded-xl containerTheme ${themeState.isDarkMode ? 'bg-slate-950' : 'bg-white'} flex flex-col p-6 gap-4 items-start relative`}>
+                <p className={`text-3xl ${themeState.isDarkMode ? 'text-violet-500' : 'text-violet-900'}`}>Search</p>
+                <div className={`w-[80%] border border-solid ${themeState.isDarkMode ? 'border-white' : 'border-black'} rounded-lg flex gap-2 items-center justify-between p-2`}>
                     <input
-                        className="w-[80%] focus:outline-none rounded-lg bg-transparent text-sm text-white ml-2"
+                        className={`w-[80%] focus:outline-none rounded-lg bg-transparent text-sm ${themeState.isDarkMode ? 'text-white' : 'text-black'} ml-2`}
                         value={searchText}
                         onChange={(e) => setSearchText(e.target.value)}
                         placeholder="Search tasks..."
@@ -41,15 +43,15 @@ const Search = () => {
                                         <p className="text-xl">{ele.task}</p>
                                     </div>
                                     <div className="flex gap-4 text-sm items-center">
-                                        <p className="text-white">{ele.date}</p>
+                                        <p className={`text-${themeState.isDarkMode ? 'white' : 'gray-400'}`}>{ele.date}</p>
                                     </div>
                                 </div>
                             ))
                         ) : (
-                            <p className="text-gray-500 text-sm">No Todos found!</p>
+                            <p className={`text-gray-500 text-sm ${themeState.isDarkMode ? 'text-white' : 'text-black'}`}>No Todos found!</p>
                         )
                     ) : (
-                        <p className="text-gray-500 text-sm">Please enter a search term.</p>
+                        <p className={`text-gray-500 text-sm ${themeState.isDarkMode ? 'text-white' : 'text-black'}`}>Please enter a search term.</p>
                     )}
                 </div>
             </div>

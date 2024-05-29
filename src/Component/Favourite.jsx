@@ -1,14 +1,16 @@
 import { useContext } from "react";
 import { FaStar } from "react-icons/fa";
 import TODOContext from "../Utils/TODOContext";
+import ThemeContext from "../Utils/ThemeContext";
 
 const Favourite = () => {
     const { state } = useContext(TODOContext);
+    const { state: themeState } = useContext(ThemeContext); 
 
     return (
         <>
-            <div className="h-[90%] w-[40%] shadow-lg rounded-xl bg-slate-950 flex flex-col p-6 gap-4 items-start relative">
-                <p className="text-3xl text-violet-500">Important</p>
+            <div className={`h-[90%] w-[40%] containerTheme shadow-lg rounded-xl ${themeState.isDarkMode ? 'bg-slate-950' : 'bg-white'} flex flex-col p-6 gap-4 items-start relative`}>
+                <p className={`text-3xl ${themeState.isDarkMode ? 'text-violet-500' : 'text-violet-900'}`}>Important</p>
                 <div className="w-full flex flex-col h-[300px] overflow-y-auto">
                     {
                         state.fav.map((ele) => (
@@ -17,7 +19,7 @@ const Favourite = () => {
                                     <p className="text-xl">{ele.task}</p>
                                 </div>
                                 <div className="flex gap-4 text-sm items-center">
-                                    <p className="text-white">{ele.date}</p>
+                                    <p className={`text-${themeState.isDarkMode ? 'white' : 'gray-400'}`}>{ele.date}</p>
                                     <FaStar className="text-yellow-400 hover:scale-125 transition-all hover:text-yellow-300" />
                                 </div>
                             </div>
