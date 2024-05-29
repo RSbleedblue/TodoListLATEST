@@ -3,12 +3,10 @@ import { createContext, useContext, useReducer } from "react";
 const TODOContext = createContext();
 
 const initialState = {
-    todo : [{
-        id:1,
-        task:"making great application",
-        date:"12th December 2024"
-    }]
-}
+    todo: [],
+    fav: []
+};
+
 const TodoReducer = (state, action) => {
     switch (action.type) {
         case "ADD_TODO":
@@ -28,16 +26,23 @@ const TodoReducer = (state, action) => {
                     todo.id === action.payload.id ? { ...todo, task: action.payload.task } : todo
                 ),
             };
+        case "ADD_FAV":
+            return {
+                ...state,
+                fav: [...state.fav, action.payload]
+            };
         default:
             return state;
     }
 };
-export const TODOProvider = ({children}) => {
-    const [state, dispatch] = useReducer(TodoReducer,initialState);
+
+export const TODOProvider = ({ children }) => {
+    const [state, dispatch] = useReducer(TodoReducer, initialState);
     return (
-        <TODOContext.Provider value={{state,dispatch}}>
+        <TODOContext.Provider value={{ state, dispatch }}>
             {children}
         </TODOContext.Provider>
-    )
-}
+    );
+};
+
 export default TODOContext;

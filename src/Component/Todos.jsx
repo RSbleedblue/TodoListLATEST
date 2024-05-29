@@ -23,6 +23,10 @@ const Todos = () => {
             toast.success("Task added successfully!");
         }
     };
+    const formatDate = (date) => {
+        const options = { day: 'numeric', month: 'long', year: 'numeric' };
+        return new Intl.DateTimeFormat('en-US', options).format(date);
+      };      
 
     const handleDelete = (id) => {
         dispatch({ type: "DELETE_TODO", payload: id });
@@ -43,9 +47,17 @@ const Todos = () => {
         }
     };
 
-    const handleFav = (id) => {
-        toast.success("Added to Favorite");
-    }
+    const handleFav = (data) => {
+        const date = new Date();
+        const formattedDate = formatDate(date);
+        const payloadData = {
+            id:data.id,
+            task:data.task,
+            date: formattedDate,
+        }
+        dispatch({ type: "ADD_FAV", payload: payloadData });
+        toast.success("Added to Important");
+    };
 
     return (
         <div className="h-[90%] w-[40%] shadow-lg rounded-xl bg-slate-950 flex flex-col p-6 gap-4 items-start relative">
@@ -59,7 +71,7 @@ const Todos = () => {
                                 <p>{ele.task}</p>
                             </div>
                             <div className="flex gap-4 text-sm">
-                                <FaStar className="text-yellow-400 hover:scale-125 transition-all hover:text-yellow-300" onClick={() => handleFav(ele.id)}/>
+                                <FaStar className="text-yellow-400 hover:scale-125 transition-all hover:text-yellow-300" onClick={() => handleFav(ele)}/>
                                 <FaPencilAlt className="hover:scale-125 transition-all" onClick={() => handleEdit(ele.id, ele.task)} />
                                 <MdDelete className="text-rose-800 hover:scale-125 transition-all hover:text-rose-500" onClick={() => handleDelete(ele.id)} />
                             </div>
